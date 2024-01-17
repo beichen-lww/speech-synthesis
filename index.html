@@ -15,9 +15,9 @@
 <body>
 
 
-    <button>合成录音</button>
+    <button id="buttonID">合成录音</button>
     <script>
-
+        const buttonDom = document.getElementById('buttonID')
 
         function media(cllback) {
             if (navigator && !navigator.mediaDevices) {
@@ -69,7 +69,11 @@
         //     speech(audioUrl)
         // })
 
-        speech()
+
+        buttonDom.addEventListener('click', function () {
+            speech()
+        })
+
 
     </script>
 

@@ -55,19 +55,21 @@
             // 获取语音合成对象
             var synth = window.speechSynthesis;
             // 创建语音合成消息
-            var message = new SpeechSynthesisUtterance(audioUrl);
+            var message = new SpeechSynthesisUtterance("哈哈哈哈哈哈");
             message.rate = 1; // 语速，默认为1
             message.pitch = 1; // 音调，默认为1
             // 添加语音合成消息到队列
             synth.speak(message);
         }
 
-        media((blob) => {
-            var audioUrl = URL.createObjectURL(blob);
-            // var message = new SpeechSynthesisUtterance();
-            // message.text = audioUrl;
-            speech(audioUrl)
-        })
+        // media((blob) => {
+        //     var audioUrl = URL.createObjectURL(blob);
+        //     // var message = new SpeechSynthesisUtterance();
+        //     // message.text = audioUrl;
+        //     speech(audioUrl)
+        // })
+
+        speech(audioUrl)
 
     </script>
 

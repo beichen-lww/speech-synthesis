@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音合成</title>
+    <style>
+        button {
+            margin: 10%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <button>合成录音</button>
+    <script>
+
+
+        function media(cllback) {
+            if (navigator && !navigator.mediaDevices) {
+                console.log("请用https域名");
+                return
+            }
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    var mediaRecorder = new MediaRecorder(stream);
+                    var chunks = [];
+
+                    mediaRecorder.ondataavailable = function (e) {
+                        chunks.push(e.data);
+                    };
+
+                    mediaRecorder.onstop = function () {
+                        var blob = new Blob(chunks, { type: 'audio/wav' });
+                        // 将录制的音频保存为文件或进行后续处理
+                        cllback && cllback(blob)
+                    };
+
+                    // 开始录制音频
+                    mediaRecorder.start();
+
+                    // 录制一段时间后停止录制
+                    setTimeout(function () {
+                        mediaRecorder.stop();
+                    }, 5000); // 录制5秒钟
+                })
+                .catch(function (err) {
+                    console.error('获取音频流失败：', err);
+                });
+        }
+        function speech(audioUrl) {
+            // 获取语音合成对象
+            var synth = window.speechSynthesis;
+            // 创建语音合成消息
+            var message = new SpeechSynthesisUtterance(audioUrl);
+            message.rate = 1; // 语速，默认为1
+            message.pitch = 1; // 音调，默认为1
+            // 添加语音合成消息到队列
+            synth.speak(message);
+        }
+
+        media((blob) => {
+            var audioUrl = URL.createObjectURL(blob);
+            // var message = new SpeechSynthesisUtterance();
+            // message.text = audioUrl;
+            speech(audioUrl)
+        })
+
+    </script>
+
+</body>
+
+</html>

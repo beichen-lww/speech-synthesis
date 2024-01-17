@@ -55,7 +55,7 @@
             // 获取语音合成对象
             var synth = window.speechSynthesis;
             // 创建语音合成消息
-            var message = new SpeechSynthesisUtterance("哈哈哈哈哈哈");
+            var message = new SpeechSynthesisUtterance("获取语音合成对象");
             message.rate = 1; // 语速，默认为1
             message.pitch = 1; // 音调，默认为1
             // 添加语音合成消息到队列
@@ -72,6 +72,7 @@
 
         buttonDom.addEventListener('click', function () {
             speech()
+            console.log(111);
         })
 
 
